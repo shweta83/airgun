@@ -219,3 +219,14 @@ class JobInvocationStatusView(BaseLoggedInView):
             delay=1,
             logger=self.logger,
         )
+
+class JobInvocationDetailView(BaseLoggedInView):
+    breadcrumb = BreadCrumb()
+    hosts_table = SatTable(
+            './/table',
+            column_widgets={
+                'Host': Text('./a'),
+                'Actions': ActionsDropdown("./div[contains(@class, 'btn-group')]"),
+            },
+        )
+    back_to_job = Text("//a[text()='Back to Job']")

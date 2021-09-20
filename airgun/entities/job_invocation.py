@@ -40,6 +40,10 @@ class JobInvocationEntity(BaseEntity):
             logger=view.logger,
         )
 
+    def host_status(self, entity_name, host_name, widget_names=None):
+        """Return Job Detail page"""
+        view = self.navigate_to(self, 'Job Detail', entity_name=entity_name, host_name=host_name)
+
 
 @navigator.register(JobInvocationEntity, 'All')
 class ShowAllJobs(NavigateStep):
@@ -80,3 +84,18 @@ class JobStatus(NavigateStep):
     def step(self, *args, **kwargs):
         self.parent.search(f'host = {kwargs.get("host_name")}')
         self.parent.table.row(description=kwargs.get('entity_name'))['Description'].widget.click()
+
+@navigator.register(JobInvocationEntity, 'Job Detail')
+class JobDetail(NavigateStep):
+    """Navigate to Job Details status screen.
+
+    Args:
+       entity_name: name of the job
+       host_name: name of the host to which job was applied
+    """
+
+    VIEW = JobInvocationDetailView
+
+    def prerequisite(self, *args, **kwargs):
+        parent_view = self.navigate_to(self.obj, 'Job Status', entity_name=kwargs.get('entity_name'), host_name=kwargs.get('host_name'))
+        parent_view.overview.hosts_table.row(host=kwargs.get('host_name'))['Host'].widget.click()
