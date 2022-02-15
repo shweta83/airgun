@@ -21,6 +21,7 @@ setup(
         'navmazing',
         'python-box',
         'pytest',
+        'selenium==4.1.0',
         'wait_for',
         'webdriver-kaifuku',
         'widgetastic.core==0.66',
