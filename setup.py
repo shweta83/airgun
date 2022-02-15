@@ -23,8 +23,8 @@ setup(
         'pytest',
         'wait_for',
         'webdriver-kaifuku',
-        'widgetastic.core',
-        'widgetastic.patternfly',
+        'widgetastic.core==0.66',
+        'widgetastic.patternfly==1.3.4',
         'widgetastic.patternfly4 @ git+https://github.com/RedHatQE/widgetastic.patternfly4.git@selenium4#egg=widgetastic.patternfly4',  # noqa
     ],
     packages=find_packages(exclude=['tests*']),
